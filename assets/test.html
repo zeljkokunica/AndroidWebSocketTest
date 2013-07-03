@@ -1,0 +1,34 @@
+<html>
+<head>
+	<script src="js/websocket.js" type="text/javascript"></script>
+</head>
+
+<body>
+	<h1>Hello!</h1>
+	
+	<script>
+		var ws = new WebSocket("ws://app.supersport.hr/api");
+		ws.onmessage = function(message) {
+			console.log(message.data);
+		}
+		ws.onerror = function(error) {
+			console.log("Error: " + error.data);
+		} 
+		ws.onopen = function() {
+			console.log("opened");
+		}
+		ws.onclose = function() {
+			console.log("closed");
+		}
+		var counter = 0;
+		setInterval(function(){
+			console.log("ws state: " + ws.readyState);
+			counter ++;
+			if (counter == 5) {
+				ws.close();
+			}
+		}, 1000);		
+	</script>
+	
+</body>
+</html>
